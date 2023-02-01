@@ -10,13 +10,17 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
-import { Profiler, useState } from 'react';
+import { Profiler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchProfileData } from '../auth/fetchProfileData';
 import { Link } from 'react-router-dom';
 import BreadCrumbs from '../breadcrubs';
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 const breadData = [
   {
     title: 'Home',
@@ -31,6 +35,7 @@ const breadData = [
 ];
 export default function Login() {
   const toast = useToast();
+  let query = useQuery();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector(state => state.getuser);
@@ -86,7 +91,11 @@ export default function Login() {
             duration: 2000,
             isClosable: true,
           });
-          navigate('/');
+          if (query.get('redirect_to') !== '') {
+            navigate(query.get('redirect_to'));
+          } else {
+            navigate('/');
+          }
         }
       })
       .catch(err => {
@@ -102,6 +111,9 @@ export default function Login() {
     console.log(auth);
     return;
   }
+  useEffect(() => {
+    console.log(query.get('redirect_to'));
+  }, []);
   return (
     <>
       <BreadCrumbs data={breadData} />

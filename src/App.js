@@ -21,6 +21,7 @@ import VerifyMobileForm from './components/register/components/verifyOtp';
 import ChatroomMain from './components/chats';
 import ChatModel from './components/chats/chatModel';
 import ForgetChangePassword from './components/forget password/change';
+import ProtectedRoute from './components/private/utils/protectedRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,13 +43,32 @@ function App() {
       <Navbar />
       <Routes>
         <Route index element={<LandingPage />} />
-        {isLoggedIn && (
-          <>
-            <Route path="create-coupon" element={<AddCoupon />} />
-            <Route path="change-password" element={<ChangePassword />} />
-            {/* Profile Also */}
-          </>
-        )}
+        <Route
+          path="create-coupon"
+          element={
+            !isLoggedIn ? (
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                redirectPath={'/create-coupon'}
+              />
+            ) : (
+              <AddCoupon />
+            )
+          }
+        />
+        <Route
+          path="change-password"
+          element={
+            !isLoggedIn ? (
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                redirectPath={'/change-password'}
+              />
+            ) : (
+              <ChangePassword />
+            )
+          }
+        />
         {!isLoggedIn && (
           <>
             <Route path="login" element={<Login />} />
