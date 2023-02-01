@@ -9,7 +9,27 @@ import {
   Badge,
   useColorModeValue,
 } from '@chakra-ui/react';
-
+import BreadCrumbs from '../breadcrubs';
+const breadData = [
+  {
+    title: 'Home',
+    link: '/',
+    current: false,
+    isDisabled: true,
+  },
+  {
+    title: 'All Coupons',
+    link: '/coupons',
+    current: false,
+    isDisabled: false,
+  },
+  {
+    title: 'Contact',
+    link: '',
+    current: true,
+    isDisabled: false,
+  },
+];
 const Profile = () => {
   let { id } = useParams();
   const [email, setEmail] = useState('');
@@ -56,6 +76,7 @@ const Profile = () => {
   }, []);
   return (
     <>
+      <BreadCrumbs data={breadData} />
       <Flex
         minH={'85vh'}
         w={'100%'}

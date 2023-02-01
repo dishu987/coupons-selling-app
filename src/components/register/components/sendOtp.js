@@ -12,8 +12,22 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BreadCrumbs from '../../breadcrubs';
 import { SendOtpRequest } from './requests/sendotp';
-
+const breadData = [
+  {
+    title: 'Home',
+    link: '/',
+    current: false,
+    isDisabled: true,
+  },
+  {
+    title: 'Send Otp',
+    link: '',
+    current: true,
+    isDisabled: true,
+  },
+];
 export default function SendOtpForm() {
   const [mobile, setMobile] = useState('');
   const [loading, setLoading] = useState(false);
@@ -59,59 +73,62 @@ export default function SendOtpForm() {
     return;
   }
   return (
-    <Flex
-      minH={'82vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
-    >
-      <form onSubmit={handleSubmit} noValidate>
-        <Stack
-          spacing={4}
-          w={'full'}
-          maxW={'md'}
-          bg={useColorModeValue('white', 'gray.700')}
-          rounded={'xl'}
-          boxShadow={'lg'}
-          p={6}
-          my={12}
-        >
-          <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
-            Create Account
-          </Heading>
-          <Text
-            fontSize={{ base: 'sm', sm: 'md' }}
-            color={useColorModeValue('gray.800', 'gray.400')}
+    <>
+      <BreadCrumbs data={breadData} />
+      <Flex
+        minH={'82vh'}
+        align={'center'}
+        justify={'center'}
+        bg={useColorModeValue('gray.50', 'gray.800')}
+      >
+        <form onSubmit={handleSubmit} noValidate>
+          <Stack
+            spacing={4}
+            w={'full'}
+            maxW={'md'}
+            bg={useColorModeValue('white', 'gray.700')}
+            rounded={'xl'}
+            boxShadow={'lg'}
+            p={6}
+            my={12}
           >
-            You&apos;ll get an sms with a verification otp
-          </Text>
-          <FormControl id="mobile" isInvalid={error}>
-            <Input
-              placeholder="Mobile Number"
-              _placeholder={{ color: 'gray.500' }}
-              type="text"
-              isDisabled={loading}
-              onChange={e => setMobile(e.target.value)}
-              value={mobile}
-            />
-            <FormErrorMessage>This is required field</FormErrorMessage>
-          </FormControl>
-          <Stack spacing={6}>
-            <Button
-              type="submit"
-              bg={'blue.400'}
-              color={'white'}
-              _hover={{
-                bg: 'blue.500',
-              }}
-              isLoading={loading}
-              loadingText="Sending..."
+            <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
+              Create Account
+            </Heading>
+            <Text
+              fontSize={{ base: 'sm', sm: 'md' }}
+              color={useColorModeValue('gray.800', 'gray.400')}
             >
-              Send Otp
-            </Button>
+              You&apos;ll get an sms with a verification otp
+            </Text>
+            <FormControl id="mobile" isInvalid={error}>
+              <Input
+                placeholder="Mobile Number"
+                _placeholder={{ color: 'gray.500' }}
+                type="text"
+                isDisabled={loading}
+                onChange={e => setMobile(e.target.value)}
+                value={mobile}
+              />
+              <FormErrorMessage>This is required field</FormErrorMessage>
+            </FormControl>
+            <Stack spacing={6}>
+              <Button
+                type="submit"
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}
+                isLoading={loading}
+                loadingText="Sending..."
+              >
+                Send Otp
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
-      </form>
-    </Flex>
+        </form>
+      </Flex>
+    </>
   );
 }

@@ -25,7 +25,33 @@ import UserAvatar from '../navbar/userAvator';
 import { registerUser } from './registerUser';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+import BreadCrumbs from '../breadcrubs';
+const breadData = [
+  {
+    title: 'Home',
+    link: '',
+    current: false,
+    isDisabled: true,
+  },
+  {
+    title: 'Send Otp',
+    link: '',
+    current: false,
+    isDisabled: true,
+  },
+  {
+    title: 'Verify Otp',
+    link: '',
+    current: false,
+    isDisabled: true,
+  },
+  {
+    title: 'Register',
+    link: '',
+    current: true,
+    isDisabled: true,
+  },
+];
 const Form1 = ({ handleChange, user }) => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -317,6 +343,7 @@ export default function Register() {
   }
   return (
     <>
+      <BreadCrumbs data={breadData} />
       <Box
         borderWidth="1px"
         rounded="lg"

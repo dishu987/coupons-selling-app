@@ -7,7 +7,20 @@ import {
   Button,
   Icon,
 } from '@chakra-ui/react';
+import BreadCrumbs from '../breadcrubs';
 
+const breadData = [
+  {
+    title: 'Home',
+    link: '/',
+    current: false,
+  },
+  {
+    title: 'All Coupons',
+    link: '/coupons',
+    current: true,
+  },
+];
 export default function NothingToShow() {
   return (
     <Container maxW={'5xl'}>
@@ -17,6 +30,7 @@ export default function NothingToShow() {
         spacing={{ base: 8, md: 10 }}
         py={{ base: 20, md: 28 }}
       >
+        <BreadCrumbs data={breadData} />
         <Heading
           fontWeight={600}
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}

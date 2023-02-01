@@ -10,10 +10,31 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import ResetPasswordForm from './components/card';
-
+import BreadCrumbs from '../../breadcrubs';
+const breadData = [
+  {
+    title: 'Home',
+    link: '/',
+    current: false,
+    isDisabled: true,
+  },
+  {
+    title: 'Profile',
+    link: '',
+    current: false,
+    isDisabled: false,
+  },
+  {
+    title: 'Change Password',
+    link: '/change-password',
+    current: true,
+    isDisabled: false,
+  },
+];
 const ChangePassword = () => {
   return (
     <>
+      <BreadCrumbs data={breadData} />
       <Flex
         minH={'82vh'}
         w={'100%'}

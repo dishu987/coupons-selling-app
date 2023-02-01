@@ -16,7 +16,19 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchProfileData } from '../auth/fetchProfileData';
 import { Link } from 'react-router-dom';
-
+import BreadCrumbs from '../breadcrubs';
+const breadData = [
+  {
+    title: 'Home',
+    link: '/',
+    current: false,
+  },
+  {
+    title: 'Login',
+    link: '/login',
+    current: true,
+  },
+];
 export default function Login() {
   const toast = useToast();
   const navigate = useNavigate();
@@ -91,55 +103,58 @@ export default function Login() {
     return;
   }
   return (
-    <Stack minH={'91vh'} direction={{ base: 'column', md: 'row' }}>
-      <Flex p={8} flex={1} align={'center'} justify={'center'}>
-        <Stack spacing={4} w={'full'} maxW={'md'}>
-          <Heading fontSize={'2xl'}> Sign in to your account</Heading>{' '}
-          <form onSubmit={handleAuth} noValidate>
-            <FormControl id="email">
-              <FormLabel> Email address </FormLabel>{' '}
-              <Input
-                type="email"
-                onChange={e => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </FormControl>{' '}
-            <FormControl id="password">
-              <FormLabel> Password </FormLabel>{' '}
-              <Input
-                type="password"
-                onChange={e => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </FormControl>{' '}
-            <Stack spacing={6}>
-              <Stack
-                direction={{ base: 'column', sm: 'row' }}
-                align={'start'}
-                justify={'space-between'}
-              >
-                <Checkbox> Remember me </Checkbox>{' '}
-                <Link color={'blue.500'} to="/forget-password">
-                  {' '}
-                  Forgot password ?{' '}
-                </Link>{' '}
+    <>
+      <BreadCrumbs data={breadData} />
+      <Stack minH={'91vh'} direction={{ base: 'column', md: 'row' }}>
+        <Flex p={8} flex={1} align={'center'} justify={'center'}>
+          <Stack spacing={4} w={'full'} maxW={'md'}>
+            <Heading fontSize={'2xl'}> Sign in to your account</Heading>{' '}
+            <form onSubmit={handleAuth} noValidate>
+              <FormControl id="email">
+                <FormLabel> Email address </FormLabel>{' '}
+                <Input
+                  type="email"
+                  onChange={e => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </FormControl>{' '}
+              <FormControl id="password">
+                <FormLabel> Password </FormLabel>{' '}
+                <Input
+                  type="password"
+                  onChange={e => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </FormControl>{' '}
+              <Stack spacing={6}>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  align={'start'}
+                  justify={'space-between'}
+                >
+                  <Checkbox> Remember me </Checkbox>{' '}
+                  <Link color={'blue.500'} to="/forget-password">
+                    {' '}
+                    Forgot password ?{' '}
+                  </Link>{' '}
+                </Stack>{' '}
+                <Button colorScheme={'blue'} variant={'solid'} type={'submit'}>
+                  Sign in
+                </Button>{' '}
               </Stack>{' '}
-              <Button colorScheme={'blue'} variant={'solid'} type={'submit'}>
-                Sign in
-              </Button>{' '}
-            </Stack>{' '}
-          </form>
-        </Stack>{' '}
-      </Flex>{' '}
-      <Flex flex={1}>
-        <Image
-          alt={'Login Image'}
-          objectFit={'cover'}
-          src={'https://pbs.twimg.com/media/EUM584uUUAAOq2_.jpg'}
-        />{' '}
-      </Flex>{' '}
-    </Stack>
+            </form>
+          </Stack>{' '}
+        </Flex>{' '}
+        <Flex flex={1}>
+          <Image
+            alt={'Login Image'}
+            objectFit={'cover'}
+            src={'https://pbs.twimg.com/media/EUM584uUUAAOq2_.jpg'}
+          />{' '}
+        </Flex>{' '}
+      </Stack>
+    </>
   );
 }

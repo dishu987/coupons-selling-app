@@ -12,9 +12,21 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import BreadCrumbs from '../breadcrubs';
 import CouponCard from './card';
 import NothingToShow from './nothing';
-
+const breadData = [
+  {
+    title: 'Home',
+    link: '/',
+    current: false,
+  },
+  {
+    title: 'All Coupons',
+    link: '/coupons',
+    current: true,
+  },
+];
 export default function Coupons() {
   const coupons = useSelector(state => state.getcoupons);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,6 +42,7 @@ export default function Coupons() {
   };
   return (
     <>
+      <BreadCrumbs data={breadData} />
       <Flex
         justifyContent={'flex-end'}
         alignItems={'center'}

@@ -10,10 +10,28 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import ForgotPasswordForm from './card';
-
+import BreadCrumbs from '../breadcrubs';
+const breadData = [
+  {
+    title: 'Home',
+    link: '/',
+    current: false,
+  },
+  {
+    title: 'Login',
+    link: '/login',
+    current: false,
+  },
+  {
+    title: 'Forget Password',
+    link: '/forget-password',
+    current: true,
+  },
+];
 const ForgetPassword = () => {
   return (
     <>
+      <BreadCrumbs data={breadData} />
       <Flex
         minH={'82vh'}
         w={'100%'}
@@ -21,7 +39,7 @@ const ForgetPassword = () => {
         alignItems={'center'}
       >
         <ForgotPasswordForm />
-      </Flex>
+      </Flex>{' '}
     </>
   );
 };

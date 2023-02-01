@@ -22,11 +22,31 @@ import { AddIcon } from '@chakra-ui/icons';
 import { AddCouponRequest } from './addrequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { RefreshTokenRequest } from '../../auth/refreshToken';
+import BreadCrumbs from '../../breadcrubs';
 
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
 }
-
+const breadData = [
+  {
+    title: 'Home',
+    link: '/',
+    current: false,
+    isDisabled: false,
+  },
+  {
+    title: 'All Coupons',
+    link: '/coupons',
+    current: false,
+    isDisabled: false,
+  },
+  {
+    title: 'New',
+    link: '/create-coupon',
+    current: true,
+    isDisabled: false,
+  },
+];
 function formatDate(date) {
   return [
     date.getFullYear(),
@@ -101,110 +121,113 @@ export default function AddCoupon() {
     return;
   }
   return (
-    <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
-    >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'} textAlign={'center'}>
-            Add a Coupon{' '}
-          </Heading>{' '}
-          <Text fontSize={'lg'} color={'gray.600'}>
-            to sell✌️{' '}
-          </Text>{' '}
-        </Stack>{' '}
-        <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}
-        >
-          <Stack spacing={4}>
-            <form onSubmit={handleAddCoupon} noValidate>
-              <FormControl id="mess" isRequired>
-                <FormLabel> Mess </FormLabel>{' '}
-                <Select
-                  id="mess"
-                  name="mess"
-                  autoComplete="mess"
-                  placeholder="Select mess"
-                  focusBorderColor="brand.400"
-                  shadow="sm"
-                  size="sm"
-                  w="full"
-                  rounded="md"
-                  onChange={handleChange}
-                >
-                  <option value={'Bhopal'}> Bhopal </option>{' '}
-                  <option value={'Kanaka'}> Kanaka </option>{' '}
-                </Select>{' '}
-              </FormControl>{' '}
-              <FormControl id="time" isRequired>
-                <FormLabel> Time </FormLabel>{' '}
-                <Select
-                  id="time"
-                  name="time"
-                  autoComplete="time"
-                  placeholder="Select time"
-                  focusBorderColor="brand.400"
-                  shadow="sm"
-                  size="sm"
-                  w="full"
-                  rounded="md"
-                  onChange={handleChange}
-                >
-                  <option value={'Breakfast'}> Breakfast </option>{' '}
-                  <option value={'Lunch'}> Lunch </option>{' '}
-                  <option value={'Dinner'}> Dinner </option>{' '}
-                </Select>{' '}
-              </FormControl>{' '}
-              <FormControl id="firstName" isRequired>
-                <FormLabel> Title </FormLabel>{' '}
-                <Textarea size="sm" name="title" onChange={handleChange} />{' '}
-              </FormControl>{' '}
-              <HStack>
-                <FormControl id="price" isRequired>
-                  <FormLabel> Price </FormLabel>{' '}
-                  <Input
-                    name="price"
-                    errorBorderColor="crimson"
-                    type="text"
-                    onChange={handleChange}
-                  />{' '}
-                </FormControl>{' '}
-                <FormControl id="date" isRequired>
-                  <FormLabel> Date </FormLabel>{' '}
-                  <Input
-                    type="date"
-                    placeholder="Outline"
-                    name="date"
-                    onChange={handleChange}
-                  />{' '}
-                </FormControl>{' '}
-              </HStack>{' '}
-              <Stack spacing={10} pt={2}>
-                <Button
-                  type="submit"
-                  loadingText="Please wait.."
-                  size="lg"
-                  bg={'blue.400'}
-                  color={'white'}
-                  _hover={{
-                    bg: 'blue.500',
-                  }}
-                  isLoading={loading}
-                  leftIcon={<AddIcon />}
-                >
-                  Add{' '}
-                </Button>{' '}
-              </Stack>{' '}
-            </form>{' '}
+    <>
+      <BreadCrumbs data={breadData} />
+      <Flex
+        minH={'100vh'}
+        align={'center'}
+        justify={'center'}
+        bg={useColorModeValue('gray.50', 'gray.800')}
+      >
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'} textAlign={'center'}>
+              Add a Coupon{' '}
+            </Heading>{' '}
+            <Text fontSize={'lg'} color={'gray.600'}>
+              to sell✌️{' '}
+            </Text>{' '}
           </Stack>{' '}
-        </Box>{' '}
-      </Stack>{' '}
-    </Flex>
+          <Box
+            rounded={'lg'}
+            bg={useColorModeValue('white', 'gray.700')}
+            boxShadow={'lg'}
+            p={8}
+          >
+            <Stack spacing={4}>
+              <form onSubmit={handleAddCoupon} noValidate>
+                <FormControl id="mess" isRequired>
+                  <FormLabel> Mess </FormLabel>{' '}
+                  <Select
+                    id="mess"
+                    name="mess"
+                    autoComplete="mess"
+                    placeholder="Select mess"
+                    focusBorderColor="brand.400"
+                    shadow="sm"
+                    size="sm"
+                    w="full"
+                    rounded="md"
+                    onChange={handleChange}
+                  >
+                    <option value={'Bhopal'}> Bhopal </option>{' '}
+                    <option value={'Kanaka'}> Kanaka </option>{' '}
+                  </Select>{' '}
+                </FormControl>{' '}
+                <FormControl id="time" isRequired>
+                  <FormLabel> Time </FormLabel>{' '}
+                  <Select
+                    id="time"
+                    name="time"
+                    autoComplete="time"
+                    placeholder="Select time"
+                    focusBorderColor="brand.400"
+                    shadow="sm"
+                    size="sm"
+                    w="full"
+                    rounded="md"
+                    onChange={handleChange}
+                  >
+                    <option value={'Breakfast'}> Breakfast </option>{' '}
+                    <option value={'Lunch'}> Lunch </option>{' '}
+                    <option value={'Dinner'}> Dinner </option>{' '}
+                  </Select>{' '}
+                </FormControl>{' '}
+                <FormControl id="firstName" isRequired>
+                  <FormLabel> Title </FormLabel>{' '}
+                  <Textarea size="sm" name="title" onChange={handleChange} />{' '}
+                </FormControl>{' '}
+                <HStack>
+                  <FormControl id="price" isRequired>
+                    <FormLabel> Price </FormLabel>{' '}
+                    <Input
+                      name="price"
+                      errorBorderColor="crimson"
+                      type="text"
+                      onChange={handleChange}
+                    />{' '}
+                  </FormControl>{' '}
+                  <FormControl id="date" isRequired>
+                    <FormLabel> Date </FormLabel>{' '}
+                    <Input
+                      type="date"
+                      placeholder="Outline"
+                      name="date"
+                      onChange={handleChange}
+                    />{' '}
+                  </FormControl>{' '}
+                </HStack>{' '}
+                <Stack spacing={10} pt={2}>
+                  <Button
+                    type="submit"
+                    loadingText="Please wait.."
+                    size="lg"
+                    bg={'blue.400'}
+                    color={'white'}
+                    _hover={{
+                      bg: 'blue.500',
+                    }}
+                    isLoading={loading}
+                    leftIcon={<AddIcon />}
+                  >
+                    Add{' '}
+                  </Button>{' '}
+                </Stack>{' '}
+              </form>{' '}
+            </Stack>{' '}
+          </Box>{' '}
+        </Stack>{' '}
+      </Flex>
+    </>
   );
 }
