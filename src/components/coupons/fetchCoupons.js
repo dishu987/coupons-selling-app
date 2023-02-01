@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 export async function fetchCouponsData(dispatch) {
-    await fetch('http://127.0.0.1:8000/api/user/coupons/list/', {
+    await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/user/coupons/list/`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
