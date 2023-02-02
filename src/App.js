@@ -22,6 +22,7 @@ import ChatroomMain from './components/chats';
 import ChatModel from './components/chats/chatModel';
 import ForgetChangePassword from './components/forget password/change';
 import ProtectedRoute from './components/private/utils/protectedRoute';
+import MessMenu from './components/mess-menu';
 
 function App() {
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ function App() {
         <Route path="coupons" element={<Coupons />} />
         <Route path="profile/:id" element={<Profile />} />
         <Route path="chatroom/:id" element={<ChatModel />} />
+        <Route path="messmenu" element={<MessMenu />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
       <Footer />

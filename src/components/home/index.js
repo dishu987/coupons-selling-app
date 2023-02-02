@@ -15,6 +15,8 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import BreadCrumbs from '../breadcrubs';
+import { useSelector } from 'react-redux';
+import { FaUser } from 'react-icons/fa';
 const breadData = [
   {
     title: 'Home',
@@ -28,10 +30,11 @@ const breadData = [
   },
 ];
 export default function LandingPage() {
+  const { isLoggedIn } = useSelector(state => state.VERIFY_AUTH).result;
   return (
     <>
       <BreadCrumbs data={breadData} />
-      <Container maxW={'7xl'}>
+      <Container maxW={'7xl'} overflowX={'hidden'}>
         <Stack
           align={'center'}
           spacing={{ base: 8, md: 10 }}
@@ -88,15 +91,32 @@ export default function LandingPage() {
               >
                 Buy Coupons
               </Button>
-              <Button
-                rounded={'full'}
-                size={'lg'}
-                fontWeight={'normal'}
-                px={6}
-                leftIcon={<PlayIcon h={4} w={4} color={'gray.300'} />}
-              >
-                How It Works
-              </Button>
+              {!isLoggedIn && (
+                <Button
+                  rounded={'full'}
+                  size={'lg'}
+                  fontWeight={'normal'}
+                  px={6}
+                  leftIcon={<FaUser h={4} w={4} color={'gray.300'} />}
+                  as={Link}
+                  to={'/send-otp'}
+                >
+                  Register
+                </Button>
+              )}
+              {isLoggedIn && (
+                <Button
+                  rounded={'full'}
+                  size={'lg'}
+                  as={Link}
+                  fontWeight={'normal'}
+                  px={6}
+                  to="/create-coupon"
+                  leftIcon={<FaUser h={4} w={4} color={'gray.300'} />}
+                >
+                  Create Coupon
+                </Button>
+              )}
             </Stack>
           </Stack>
           <Flex
@@ -106,15 +126,15 @@ export default function LandingPage() {
             position={'relative'}
             w={'full'}
           >
-            {/* <Blob
-            w={'150%'}
-            h={'150%'}
-            position={'absolute'}
-            top={'-20%'}
-            left={0}
-            zIndex={-1}
-            color={useColorModeValue('red.50', 'red.400')}
-          /> */}
+            <Blob
+              w={'150%'}
+              h={'150%'}
+              position={'absolute'}
+              top={'-20%'}
+              left={0}
+              zIndex={-1}
+              color={useColorModeValue('red.50', 'red.400')}
+            />
             <Box
               position={'relative'}
               height={'300px'}

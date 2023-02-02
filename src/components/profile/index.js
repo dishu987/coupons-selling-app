@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Skeleton } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
@@ -39,6 +39,7 @@ const Profile = () => {
   const [room, setRoom] = useState('');
   const [degree, setDegree] = useState('');
   const [batch, setBatch] = useState('');
+  const [loaded, setLoading] = useState(false);
   async function FetchData(userid) {
     const res = await fetch(
       `${process.env.REACT_APP_API_ENDPOINT}/api/user/profile/user_profile/?userid=${userid}`,
@@ -69,6 +70,7 @@ const Profile = () => {
     setHostel(res.hostel);
     setMobile(res.mobile);
     setRoom(res.room);
+    setLoading(true);
     return;
   }
   useEffect(() => {
@@ -92,51 +94,58 @@ const Profile = () => {
           p={6}
           textAlign={'center'}
         >
-          <Heading fontSize={'2xl'} fontFamily={'body'}>
-            {name}
-          </Heading>
-          <Text fontWeight={600} color={'gray.500'} mb={4}>
-            {email}
-          </Text>
-          <Text
-            textAlign={'center'}
-            color={useColorModeValue('gray.700', 'gray.400')}
-            px={3}
-          >
-            {hostel}, {room}
-          </Text>
-
-          <Stack
-            align={'center'}
-            justify={'center'}
-            direction={'column'}
-            mt={6}
-          >
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
+          <Skeleton isLoaded={loaded}>
+            <Heading fontSize={'2xl'} fontFamily={'body'}>
+              {name}
+            </Heading>
+          </Skeleton>
+          <Skeleton isLoaded={loaded}>
+            <Text fontWeight={600} color={'gray.500'} mb={4}>
+              {email}
+            </Text>
+          </Skeleton>
+          <Skeleton isLoaded={loaded}>
+            <Text
+              textAlign={'center'}
+              color={useColorModeValue('gray.700', 'gray.400')}
+              px={3}
             >
-              #Batch {batch}
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
+              {hostel}, {room}
+            </Text>
+          </Skeleton>
+          <Skeleton isLoaded={loaded}>
+            <Stack
+              align={'center'}
+              justify={'center'}
+              direction={'column'}
+              mt={6}
             >
-              #Degree {degree}
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
-            >
-              #Mobile {mobile}
-            </Badge>
-          </Stack>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue('gray.50', 'gray.800')}
+                fontWeight={'400'}
+              >
+                #Batch {batch}
+              </Badge>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue('gray.50', 'gray.800')}
+                fontWeight={'400'}
+              >
+                #Degree {degree}
+              </Badge>
+              <Badge
+                px={2}
+                py={1}
+                bg={useColorModeValue('gray.50', 'gray.800')}
+                fontWeight={'400'}
+              >
+                #Mobile {mobile}
+              </Badge>
+            </Stack>
+          </Skeleton>
         </Box>
       </Flex>
     </>
